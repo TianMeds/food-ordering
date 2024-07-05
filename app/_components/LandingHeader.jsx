@@ -1,9 +1,11 @@
-'use client'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 
 const LandingHeader = () => {
+    const { user, isSignedIn } = useUser();
 
     const navigation = [
         { title: 'Home', link: '/home' },
@@ -11,7 +13,7 @@ const LandingHeader = () => {
         { title: 'Menu', link: '/menu' },
         { title: 'Book A Party', link: '/book' },
         { title: 'Order Now', link: '/order' },
-        { title: 'Login', link: '/login' },
+        { title: isSignedIn ? 'My Account' : 'Login', link: isSignedIn ? '/dashboard' : '/sign-in' },
     ];
 
     const pathName = usePathname();
@@ -101,7 +103,7 @@ const LandingHeader = () => {
                 </div>
             )}
         </div>
-        )
-}
+    );
+};
 
 export default LandingHeader;

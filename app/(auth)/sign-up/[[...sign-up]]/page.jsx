@@ -63,7 +63,7 @@ export default function Page() {
             <p className="text-center text-sm text-zinc-500">
               Already have an account?{' '}
               <a
-                href="/sign-in"
+                href={process.env.NEXT_PUBLIC_REDIRECT}
                 className="font-medium text-zinc-950 decoration-zinc-950/20 underline-offset-4 outline-none hover:text-zinc-700 hover:underline focus-visible:underline"
               >
                 Sign in

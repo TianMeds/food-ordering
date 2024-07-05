@@ -20,9 +20,7 @@ export default function RootLayout({ children }) {
         <Head>
           <link rel="shortcut icon" href="/favicon.png" />
         </Head>
-        <LandingHeader/>
             {children}
-        <Footer/>
         </body>
     </html>
     </ClerkProvider>
