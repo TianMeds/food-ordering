@@ -13,7 +13,7 @@ const LandingHeader = () => {
         { title: 'Menu', link: '/menu' },
         { title: 'Book A Party', link: '/book' },
         { title: 'Order Now', link: '/order' },
-        { title: isSignedIn ? 'My Account' : 'Login', link: isSignedIn ? '/dashboard' : '/sign-in' },
+        { title: isSignedIn ? 'My Account' : 'Login', link: isSignedIn ? '/order' : '/sign-in' },
     ];
 
     const pathName = usePathname();
