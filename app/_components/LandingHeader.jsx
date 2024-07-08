@@ -1,19 +1,41 @@
 'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { useContext, useEffect, useState } from 'react';
+import { useUser, UserButton } from '@clerk/nextjs';
+import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover';
+import { CartUpdateContext } from '../_context/CartUpdateContext';
+import GlobalAPI from '../utils/GlobalAPI';
+import Cart from '../_components/Cart'
 
 const LandingHeader = () => {
     const { user, isSignedIn } = useUser();
+    const [cart, setCart] = useState([]);
+    const {updateCart, setUpdateCart}=useContext(CartUpdateContext);
+
+    useEffect(() => {
+        console.log("Execute me");
+        user&&GetUserCart()
+    }, [updateCart && user])
+
+    const GetUserCart = () => {
+        GlobalAPI.getUserCart(user?.primaryEmailAddress.emailAddress).then(resp => {
+            console.log(resp)
+            setCart(resp.userCarts);
+        })
+    }
 
     const navigation = [
         { title: 'Home', link: '/home' },
         { title: 'About', link: '/about' },
         { title: 'Menu', link: '/menu' },
         { title: 'Book A Party', link: '/book' },
+    ];
+
+    const authLinks = [
         { title: 'Order Now', link: '/order' },
-        { title: isSignedIn ? 'My Account' : 'Login', link: isSignedIn ? '/order' : '/sign-in' },
+        { title: isSignedIn ? '' : 'Login', link: isSignedIn ? '' : '/sign-in' },
     ];
 
     const pathName = usePathname();
@@ -53,7 +75,7 @@ const LandingHeader = () => {
                     </div>
                     {/* Regular navigation for laptop view */}
                     <div className='hidden md:flex items-center gap-7 justify-center'>
-                        {navigation.filter(item => item.title !== 'Order Now' && item.title !== 'Login').map((item) => (
+                        {navigation.map((item) => (
                             <Link key={item.title} href={item.link} className={`relative group overflow-hidden ${pathName === item.link && 'text-blue-700 underline'}`}>
                                 {item.title}
                                 <span
@@ -63,7 +85,7 @@ const LandingHeader = () => {
                         ))}
                     </div>
                     <div className='md:flex items-center gap-7 justify-end hidden'>
-                        {navigation.slice(-2).map((item) => (
+                        {authLinks.slice(0, 1).map((item) => (
                             <Link
                                 key={item.title}
                                 href={item.link}
@@ -77,6 +99,34 @@ const LandingHeader = () => {
                                 )}
                             </Link>
                         ))}
+                        {isSignedIn && (
+                            <div className='flex gap-3 items-center'>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                    <div className='flex gap-2 items-cemter cursor-pointer'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-7 w-7">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                        <label className='p-1 px-2 rounded-full bg-slate-200'>
+                                            {cart?.length}
+                                        </label>
+                                    </div>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <Cart cart={cart}/>
+                                    </PopoverContent>
+                                </Popover>
+                                <UserButton />
+                            </div>
+                        )}
+                        {!isSignedIn && (
+                            <Link
+                                href='/sign-in'
+                                className={`relative group overflow-hidden ${pathName === '/sign-in' && 'text-blue-700'}`}
+                            >
+                                Login
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>
@@ -91,13 +141,26 @@ const LandingHeader = () => {
                                 </svg>
                             </button>
                         </div>
-                        {navigation.map((item) => (
-                            <Link key={item.title} href={item.link} className={`relative group overflow-hidden ${pathName === item.link && 'text-blue-700'} text-4xl mb-2 text-white`}>
-                                {item.title}
-                                <span
-                                    className={`w-full h-[1px] inline-flex absolute bottom-0 left-0 bg-black dark:bg-white -translate-x-[105%] group-hover:translate-x-0 duration-300 ${pathName === item.link ? 'bg-blue-600 dark:bg-blue-600 translate-x-0' : 'bg-black dark:bg-white'}`}
-                                />
-                            </Link>
+                        {navigation.concat(authLinks).map((item, index) => (
+                            item.title ? (
+                                <Link key={item.title} href={item.link} className={`relative group overflow-hidden ${pathName === item.link && 'text-blue-700'} text-4xl mb-2 text-white`}>
+                                    {item.title}
+                                    <span
+                                        className={`w-full h-[1px] inline-flex absolute bottom-0 left-0 bg-black dark:bg-white -translate-x-[105%] group-hover:translate-x-0 duration-300 ${pathName === item.link ? 'bg-blue-600 dark:bg-blue-600 translate-x-0' : 'bg-black dark:bg-white'}`}
+                                    />
+                                </Link>
+                            ) : (
+                                isSignedIn && index === authLinks.length - 1 && (
+                                    <div key="user-button" className='flex items-center gap-7 justify-center'>
+                                        <UserButton />
+                                        <Link href='/cart' className='relative'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-6 w-6 text-white">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                            </svg>
+                                        </Link>
+                                    </div>
+                                )
+                            )
                         ))}
                     </div>
                 </div>
