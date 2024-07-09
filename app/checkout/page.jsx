@@ -10,6 +10,8 @@ import { toast } from 'sonner'
 import GlobalAPI from '../utils/GlobalAPI'
 import { CartUpdateContext } from '../_context/CartUpdateContext'
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useRouter } from 'next/navigation'
+import { send } from 'process'
 
 
 const Checkout = () => {
@@ -23,6 +25,7 @@ const Checkout = () => {
     const [email, setEmail] = useState();
     const [phone, setPhone] = useState()
     const [loading, setLoading] = useState(false)
+    const router = useRouter();
 
 
     const params= useSearchParams();
@@ -63,7 +66,8 @@ const Checkout = () => {
                              console.log(result);
                               setLoading(false)
                                 toast('Order Created Succesfully')
-                                 setUpdateCart(!updateCart)
+                                 setUpdateCart(!updateCart);
+                                 router.replace('/confirmation')
                          }, (error) => {
                      setLoading(false)    
                  })
@@ -73,6 +77,36 @@ const Checkout = () => {
              setLoading(false)
          })
     }
+
+    const sendEmail = async () => {
+        try {
+          setLoading(true);
+    
+          const response = await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: user?.primaryEmailAddress.emailAddress }), // Replace with the actual recipient email
+          });
+    
+          if (response.ok) {
+            console.log('Email sent successfully');
+            // Handle success
+          } else {
+            console.error('Error sending email');
+            // Handle error
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // Handle error
+        } finally {
+          setLoading(false);
+        }
+      };
+      
+      
+      
 
 
   return (
@@ -100,9 +134,9 @@ const Checkout = () => {
                     <hr></hr>
                     <h2 className='font-bold  flex justify-between'>Total: <span> ₱{total.toFixed(2)}  </span> </h2>
                     {/* <Button onClick={() => onApprove({paymentId:123})}>Place Order</Button> */}
-                    {/* <Button className="bg-red-500 hover:bg-red-700" onClick={() => addToOrder()}>
+                    <Button className="bg-red-500 hover:bg-red-700" onClick={sendEmail}>
                        {loading ? <Loader className="animate-spin"/> : "Make Payment"} 
-                    </Button> */}
+                    </Button>
                     {total>5&& <PayPalButtons 
                      disabled={(!userName || !email || !phone) || loading}
                      style={{ layout: "horizontal" }} 
