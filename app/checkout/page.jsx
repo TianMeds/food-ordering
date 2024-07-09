@@ -87,18 +87,21 @@ const Checkout = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: user?.primaryEmailAddress.emailAddress }), // Replace with the actual recipient email
+            body: JSON.stringify({ email: user?.primaryEmailAddress.emailAddress }),
           });
     
           if (response.ok) {
             console.log('Email sent successfully');
+            toast('Order sent succesfully')
             // Handle success
           } else {
             console.error('Error sending email');
+            toast('Error sending the order')
             // Handle error
           }
         } catch (error) {
           console.error('Error:', error);
+          toast("Error sending the order")
           // Handle error
         } finally {
           setLoading(false);
@@ -134,8 +137,8 @@ const Checkout = () => {
                     <hr></hr>
                     <h2 className='font-bold  flex justify-between'>Total: <span> ₱{total.toFixed(2)}  </span> </h2>
                     {/* <Button onClick={() => onApprove({paymentId:123})}>Place Order</Button> */}
-                    <Button className="bg-red-500 hover:bg-red-700" onClick={sendEmail}>
-                       {loading ? <Loader className="animate-spin"/> : "Make Payment"} 
+                    <Button className="bg-red-500 hover:bg-red-700" onClick={sendEmail} disabled={(!userName || !email || !phone) || loading}>
+                       {loading ? <Loader className="animate-spin"/> : "Place Order"} 
                     </Button>
                     {total>5&& <PayPalButtons 
                      disabled={(!userName || !email || !phone) || loading}
