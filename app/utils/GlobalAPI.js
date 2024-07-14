@@ -33,6 +33,28 @@ const getUserCart = async( userEmail ) => {
     const result = await request(MASTER_URL,query);
     return result;
 }
+const getUserOrder = async(userEmail) => {
+    const query=gql`
+    query GetUserOrder {
+        orders(where: {email: "`+userEmail+`"}) {
+            id
+            orderAmount
+            orderDetail {
+            ... on OrderItem {
+                id
+                name
+            }
+            }
+            publishedAt
+            phone
+            username
+        }
+    }
+    `
+    const result = await request(MASTER_URL,query);
+    return result;
+}
+
     const DeleteItemFromCart = async (id) => {
         const query=gql`
         mutation DeleteItemFromCart {
@@ -60,7 +82,7 @@ const getUserCart = async( userEmail ) => {
         `
 
         const result =  await request(MASTER_URL,query);
-        return result;
+        return result;  
     }
 
 
@@ -86,11 +108,15 @@ const getUserCart = async( userEmail ) => {
         const result =  await request(MASTER_URL,query);
         return result;
     }
+    
+
+
 
 export default{
     addToCart,
     getUserCart,
     DeleteItemFromCart,
     CreateNewOrder,
-    UpdateOrderDetail
+    UpdateOrderDetail,
+    getUserOrder
 }

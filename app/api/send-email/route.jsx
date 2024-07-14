@@ -1,10 +1,10 @@
 import { render } from '@react-email/components';
 import nodemailer from 'nodemailer';
-import { Email } from '../../../emails';
+import Email from '../../../emails/index';
 
 export const POST = async (req) => {
   try {
-    const { email } = await req.json();
+    const { userName, email, phone, productName, total, subTotal } = await req.json();
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -16,7 +16,7 @@ export const POST = async (req) => {
       },
     });
 
-    const emailHtml = render(Email());
+    const emailHtml = render(<Email userName={userName} email={email} phone={phone} productName={productName} total={total} subTotal={subTotal} />);
 
     const options = {
       from: 'tianmeds.business@gmail.com',
@@ -26,19 +26,25 @@ export const POST = async (req) => {
     };
 
     await transporter.sendMail(options);
-    return new Response(JSON.stringify({ message: 'Email sent successfully' }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return new Response(
+      JSON.stringify({ message: 'Email sent successfully' }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ error: 'Error sending email' }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return new Response(
+      JSON.stringify({ error: 'Error sending email' }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
   }
 };

@@ -3,7 +3,6 @@ import {
   Container,
   Column,
   Head,
-  Heading,
   Hr,
   Html,
   Img,
@@ -19,443 +18,352 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
 
-export const Email = () => (
-  <Html>
-    <Head />
-    <Preview>Get your order summary, estimated delivery date and more</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Section style={track.container}>
-          <Row>
-            <Column>
-              <Text style={global.paragraphWithBold}>Tracking Number</Text>
-              <Text style={track.number}>1ZV218970300071628</Text>
-            </Column>
-            <Column align="right">
-              <Link style={global.button}>Track Package</Link>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={message}>
-          <Img
-            src={`${baseUrl}/static/nike-logo.png`}
-            width="66"
-            height="22"
-            alt="Nike"
-            style={{ margin: "auto" }}
-          />
-          <Heading style={global.heading}>It's On Its Way.</Heading>
-          <Text style={global.text}>
-            You order's is on its way. Use the link above to track its progress.
-          </Text>
-          <Text style={{ ...global.text, marginTop: 24 }}>
-            We´ve also charged your payment method for the cost of your order
-            and will be removing any authorization holds. For payment details,
-            please visit your Orders page on Nike.com or in the Nike app.
-          </Text>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Shipping to: Alan Turing</Text>
-          <Text style={{ ...global.text, fontSize: 14 }}>
-            2125 Chestnut St, San Francisco, CA 94123
-          </Text>
-        </Section>
-        <Hr style={global.hr} />
-        <Section
-          style={{ ...paddingX, paddingTop: "40px", paddingBottom: "40px" }}
-        >
-          <Row>
-            <Column>
-              <Img
-                src={`${baseUrl}/static/nike-product.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                style={{ float: "left" }}
-                width="260px"
-              />
-            </Column>
-            <Column style={{ verticalAlign: "top", paddingLeft: "12px" }}>
-              <Text style={{ ...paragraph, fontWeight: "500" }}>
-                Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
-              </Text>
-              <Text style={global.text}>Size L (12–14)</Text>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={global.defaultPadding}>
-          <Row style={{ display: "inline-flex", marginBottom: 40 }}>
-            <Column style={{ width: "170px" }}>
-              <Text style={global.paragraphWithBold}>Order Number</Text>
-              <Text style={track.number}>C0106373851</Text>
-            </Column>
-            <Column>
-              <Text style={global.paragraphWithBold}>Order Date</Text>
-              <Text style={track.number}>Sep 22, 2022</Text>
-            </Column>
-          </Row>
-          <Row>
-            <Column align="center">
-              <Link style={global.button}>Order Status</Link>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={paddingY}>
-          <Row>
-            <Text style={global.heading}>Top Picks For You</Text>
-          </Row>
-          <Row style={recomendations.container}>
-            <Column
-              style={{ ...recomendations.product, paddingLeft: "4px" }}
-              align="center"
-            >
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-1.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>
-                USWNT 2022/23 Stadium Home
-              </Text>
-              <Text style={recomendations.text}>
-                Women's Nike Dri-FIT Soccer Jersey
-              </Text>
-            </Column>
-            <Column style={recomendations.product} align="center">
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-2.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>
-                Brazil 2022/23 Stadium Goalkeeper
-              </Text>
-              <Text style={recomendations.text}>
-                Men's Nike Dri-FIT Short-Sleeve Football Shirt
-              </Text>
-            </Column>
-            <Column style={recomendations.product} align="center">
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-4.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>FFF</Text>
-              <Text style={recomendations.text}>Women's Soccer Jacket</Text>
-            </Column>
-            <Column
-              style={{ ...recomendations.product, paddingRight: "4px" }}
-              align="center"
-            >
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-4.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>FFF</Text>
-              <Text style={recomendations.text}>
-                Women's Nike Pre-Match Football Top
-              </Text>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={menu.container}>
-          <Row>
-            <Text style={menu.title}>Get Help</Text>
-          </Row>
-          <Row style={menu.content}>
-            <Column style={{ width: "33%" }} colSpan={1}>
-              <Link href="/" style={menu.text}>
-                Shipping Status
-              </Link>
-            </Column>
-            <Column style={{ width: "33%" }} colSpan={1}>
-              <Link href="/" style={menu.text}>
-                Shipping & Delivery
-              </Link>
-            </Column>
-            <Column style={{ width: "33%" }} colSpan={1}>
-              <Link href="/" style={menu.text}>
-                Returns & Exchanges
-              </Link>
-            </Column>
-          </Row>
-          <Row style={{ ...menu.content, paddingTop: "0" }}>
-            <Column style={{ width: "33%" }} colSpan={1}>
-              <Link href="/" style={menu.text}>
-                How to Return
-              </Link>
-            </Column>
-            <Column style={{ width: "66%" }} colSpan={2}>
-              <Link href="/" style={menu.text}>
-                Contact Options
-              </Link>
-            </Column>
-          </Row>
-          <Hr style={global.hr} />
-          <Row style={menu.tel}>
-            <Column>
+  const Email = ({ userName, email, phone, productName, total, subTotal }) => {
+
+    const getFormattedDate = () => {
+      const date = new Date();
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      };
+      return date.toLocaleDateString('en-US', options);
+    };
+
+    return (
+      <Html>
+        <Head />
+        <Preview>G & R Receipt</Preview>
+  
+        <Body style={main}>
+          <Container style={container}>
+            <Section>
               <Row>
-                <Column style={{ width: "16px" }}>
-                  <Img
-                    src={`${baseUrl}/static/nike-phone.png`}
-                    width="16px"
-                    height="26px"
-                    style={{ paddingRight: "14px" }}
+                <Column>
+                  <img
+                    src="https://raw.githubusercontent.com/TianMeds/image--stocks-for-coding/84a59ca8df5a3875fc66d84f87943a62160c8ada/G%26R%20Eatery%20Logo.svg"
+                    width="150"
+                    height="150"
+                    alt="Rene & Grace Sizzlingg Logo"
                   />
                 </Column>
-                <Column>
-                  <Text style={{ ...menu.text, marginBottom: "0" }}>
-                    1-800-806-6453
-                  </Text>
+  
+                <Column align="right" style={tableCell}>
+                  <Text style={heading}>Digital Receipt</Text>
                 </Column>
               </Row>
-            </Column>
-            <Column>
-              <Text
-                style={{
-                  ...menu.text,
-                  marginBottom: "0",
-                }}
-              >
-                4 am - 11 pm PT
+            </Section>
+            <Section>
+              <Text style={cupomText}>
+                Your order is being prepared. This is the auto-generated receipt for your order. We're preparing your food. You can go now to the cart and show your receipt to get the food. Thank you for trusting Rene & Grace Sizzlingg.
               </Text>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={paddingY}>
-          <Row>
-            <Text style={global.heading}>Nike.com</Text>
-          </Row>
-          <Row style={categories.container}>
-            <Column align="center">
-              <Link href="/" style={categories.text}>
-                Men
-              </Link>
-            </Column>
-            <Column align="center">
-              <Link href="/" style={categories.text}>
-                Women
-              </Link>
-            </Column>
-            <Column align="center">
-              <Link href="/" style={categories.text}>
-                Kids
-              </Link>
-            </Column>
-            <Column align="center">
-              <Link href="/" style={categories.text}>
-                Customize
-              </Link>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={{ ...global.hr, marginTop: "12px" }} />
-        <Section style={paddingY}>
-          <Row style={footer.policy}>
-            <Column>
-              <Text style={footer.text}>Web Version</Text>
-            </Column>
-            <Column>
-              <Text style={footer.text}>Privacy Policy</Text>
-            </Column>
-          </Row>
-          <Row>
-            <Text style={{ ...footer.text, paddingTop: 30, paddingBottom: 30 }}>
-              Please contact us if you have any questions. (If you reply to this
-              email, we won't be able to see it.)
-            </Text>
-          </Row>
-          <Row>
-            <Text style={footer.text}>
-              © 2022 Nike, Inc. All Rights Reserved.
-            </Text>
-          </Row>
-          <Row>
-            <Text style={footer.text}>
-              NIKE, INC. One Bowerman Drive, Beaverton, Oregon 97005, USA.
-            </Text>
-          </Row>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
-);
+            </Section>
+            <Section style={informationTable}>
+              <Row style={informationTableRow}>
+                <Column colSpan={2}>
+                  <Section>
+                    <Row>
+                      <Column style={informationTableColumn}>
+                        <Text style={informationTableLabel}>G & R MEMBER'S EMAIL</Text>
+                        <Link
+                          style={{
+                            ...informationTableValue,
+                            color: "#15c",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {email}
+                        </Link>
+                      </Column>
+                    </Row>
+  
+                    <Row>
+                      <Column style={informationTableColumn}>
+                        <Text style={informationTableLabel}>INVOICE DATE</Text>
+                        <Text style={informationTableValue}>{getFormattedDate()}</Text>
+                      </Column>
+                    </Row>
 
-export default Email;
-
-
-const paddingX = {
-  paddingLeft: "40px",
-  paddingRight: "40px",
-};
-
-const paddingY = {
-  paddingTop: "22px",
-  paddingBottom: "22px",
-};
-
-const paragraph = {
-  margin: "0",
-  lineHeight: "2",
-};
-
-const global = {
-  paddingX,
-  paddingY,
-  defaultPadding: {
-    ...paddingX,
-    ...paddingY,
-  },
-  paragraphWithBold: { ...paragraph, fontWeight: "bold" },
-  heading: {
-    fontSize: "32px",
-    lineHeight: "1.3",
-    fontWeight: "700",
-    textAlign: "center",
-    letterSpacing: "-1px",
-  },
-  text: {
-    ...paragraph,
-    color: "#747474",
-    fontWeight: "500",
-  },
-  button: {
-    border: "1px solid #929292",
-    fontSize: "16px",
-    textDecoration: "none",
-    padding: "10px 0px",
-    width: "220px",
-    display: "block",
-    textAlign: "center",
-    fontWeight: 500,
-    color: "#000",
-  },
-  hr: {
-    borderColor: "#E5E5E5",
-    margin: "0",
-  },
-};
+                    <Column style={informationTableColumn} colSpan={2}>
+                      <Text style={informationTableLabel}>BILLED TO</Text>
+                      <Text style={informationTableValue}>{userName}</Text>
+                      <Text style={informationTableValue}>{phone}</Text>
+                    </Column>
+                  </Section>
+                </Column>
+              </Row>
+            </Section>
+            <Section style={productTitleTable}>
+              <Text style={productsTitle}>G & R Order</Text>
+            </Section>
+            <Section>
+              <Row>
+                <Column style={{ width: "64px" }}>
+                  <Img
+                    src="https://via.placeholder.com/64"
+                    width="64"
+                    height="64"
+                    alt="HBO Max"
+                    style={productIcon}
+                  />
+                </Column>
+                <Column style={{ paddingLeft: "22px" }}>
+                  <Text style={productTitle}>{productName}</Text>
+                  <Text style={productDescription}></Text>
+                  <Text style={productDescription}></Text>
+                </Column>
+  
+                <Column style={productPriceWrapper} align="right">
+                  <Text style={productPrice}>{subTotal}</Text>
+                  <Text style={productPrice}>+ ₱ 15</Text>
+                </Column>
+              </Row>
+            </Section>
+            <Hr style={productPriceLine} />
+            <Section align="right">
+              <Row>
+                <Column style={tableCell} align="right">
+                  <Text style={productPriceTotal}>TOTAL</Text>
+                </Column>
+                <Column style={productPriceVerticalLine}></Column>
+                <Column style={productPriceLargeWrapper}>
+                  <Text style={productPriceLarge}>{total}</Text>
+                </Column>
+              </Row>
+            </Section>
+            <Hr style={productPriceLineBottom} />
+            <Section>
+              <Row>
+                <Column align="center" style={block}>
+                  <img
+                    src="https://raw.githubusercontent.com/TianMeds/image--stocks-for-coding/84a59ca8df5a3875fc66d84f87943a62160c8ada/G%26R%20Eatery%20Logo.svg"
+                    width="60"
+                    height="17"
+                    alt="Apple Card"
+                  />
+                </Column>
+              </Row>
+            </Section>
+          </Container>
+        </Body>
+      </Html>
+    );
+  };
+  
+  export default Email;
 
 const main = {
+  fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
   backgroundColor: "#ffffff",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+};
+
+const resetText = {
+  margin: "0",
+  padding: "0",
+  lineHeight: 1.4,
 };
 
 const container = {
-  margin: "10px auto",
-  width: "600px",
+  margin: "0 auto",
+  padding: "20px 0 48px",
+  width: "660px",
   maxWidth: "100%",
-  border: "1px solid #E5E5E5",
 };
 
-const track = {
-  container: {
-    padding: "22px 40px",
-    backgroundColor: "#F7F7F7",
-  },
-  number: {
-    margin: "12px 0 0 0",
-    fontWeight: 500,
-    lineHeight: "1.4",
-    color: "#6F6F6F",
-  },
+const tableCell = { display: "table-cell" };
+
+const heading = {
+  fontSize: "32px",
+  fontWeight: "300",
+  color: "#888888",
 };
 
-const message = {
-  padding: "40px 74px",
+const cupomText = {
   textAlign: "center",
-}
-
-const adressTitle = {
-  ...paragraph,
-  fontSize: "15px",
-  fontWeight: "bold",
+  margin: "36px 0 40px 0",
+  fontSize: "14px",
+  fontWeight: "500",
+  color: "#111111",
 };
 
-const recomendationsText = {
+const supStyle = {
+  fontWeight: "300",
+};
+
+const informationTable = {
+  borderCollapse: "collapse",
+  borderSpacing: "0px",
+  color: "rgb(51,51,51)",
+  backgroundColor: "rgb(250,250,250)",
+  borderRadius: "3px",
+  fontSize: "12px",
+};
+
+const informationTableRow = {
+  height: "46px",
+};
+
+const informationTableColumn = {
+  paddingLeft: "20px",
+  borderStyle: "solid",
+  borderColor: "white",
+  borderWidth: "0px 1px 1px 0px",
+  height: "44px",
+};
+
+const informationTableLabel = {
+  ...resetText,
+  color: "rgb(102,102,102)",
+  fontSize: "10px",
+};
+
+const informationTableValue = {
+  fontSize: "12px",
   margin: "0",
-  fontSize: "15px",
-  lineHeight: "1",
+  padding: "0",
+  lineHeight: 1.4,
+};
+
+const productTitleTable = {
+  ...informationTable,
+  margin: "30px 0 15px 0",
+  height: "24px",
+};
+
+const productsTitle = {
+  background: "#fafafa",
   paddingLeft: "10px",
-  paddingRight: "10px",
+  fontSize: "14px",
+  fontWeight: "500",
+  margin: "0",
 };
 
-const recomendations = {
-  container: {
-    padding: "20px 0",
-  },
-  product: {
-    verticalAlign: "top",
-    textAlign: "left",
-    paddingLeft: "2px",
-    paddingRight: "2px",
-  },
-  title: { ...recomendationsText, paddingTop: "12px", fontWeight: "500" },
-  text: {
-    ...recomendationsText,
-    paddingTop: "4px",
-    color: "#747474",
-  },
+const productIcon = {
+  margin: "0 0 0 20px",
+  borderRadius: "14px",
+  border: "1px solid rgba(128,128,128,0.2)",
 };
 
-const menu = {
-  container: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    paddingTop: "20px",
-    backgroundColor: "#F7F7F7",
-  },
-  content: {
-    ...paddingY,
-    paddingLeft: "20px",
-    paddingRight: "20px",
-  },
-  title: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    fontWeight: "bold",
-  },
-  text: {
-    fontSize: "13.5px",
-    marginTop: 0,
-    fontWeight: 500,
-    color: "#000",
-  },
-  tel: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    paddingTop: "32px",
-    paddingBottom: "22px",
-  },
+const productTitle = { fontSize: "12px", fontWeight: "600", ...resetText };
+
+const productDescription = {
+  fontSize: "12px",
+  color: "rgb(102,102,102)",
+  ...resetText,
 };
 
-const categories = {
-  container: {
-    width: "370px",
-    margin: "auto",
-    paddingTop: "12px",
-  },
-  text: {
-    fontWeight: "500",
-    color: "#000",
-  },
+const productLink = {
+  fontSize: "12px",
+  color: "rgb(0,112,201)",
+  textDecoration: "none",
 };
 
-const footer = {
-  policy: {
-    width: "166px",
-    margin: "auto",
-  },
-  text: {
-    margin: "0",
-    color: "#AFAFAF",
-    fontSize: "13px",
-    textAlign: "center",
-  } 
+const divisor = {
+  marginLeft: "4px",
+  marginRight: "4px",
+  color: "rgb(51,51,51)",
+  fontWeight: 200,
+};
+
+const productPriceTotal = {
+  margin: "0",
+  color: "rgb(102,102,102)",
+  fontSize: "10px",
+  fontWeight: "600",
+  padding: "0px 30px 0px 0px",
+  textAlign: "right" ,
+};
+
+const productPrice = {
+  fontSize: "12px",
+  fontWeight: "600",
+  margin: "0",
+};
+
+const productPriceLarge = {
+  margin: "0px 20px 0px 0px",
+  fontSize: "16px",
+  fontWeight: "600",
+  whiteSpace: "nowrap",
+  textAlign: "right",
+};
+
+const productPriceWrapper = {
+  display: "table-cell",
+  padding: "0px 20px 0px 0px",
+  width: "100px",
+  verticalAlign: "top",
+};
+
+const productPriceLine = { margin: "30px 0 0 0" };
+
+const productPriceVerticalLine = {
+  height: "48px",
+  borderLeft: "1px solid",
+  borderColor: "rgb(238,238,238)",
+};
+
+const productPriceLargeWrapper = { display: "table-cell", width: "90px" };
+
+const productPriceLineBottom = { margin: "0 0 75px 0" };
+
+const block = { display: "block" };
+
+const ctaTitle = {
+  display: "block",
+  margin: "15px 0 0 0",
+};
+
+const ctaText = { fontSize: "24px", fontWeight: "500" };
+
+const walletWrapper = { display: "table-cell", margin: "10px 0 0 0" };
+
+const walletLink = { color: "rgb(0,126,255)", textDecoration: "none" };
+
+const walletImage = {
+  display: "inherit",
+  paddingRight: "8px",
+  verticalAlign: "middle",
+};
+
+const walletBottomLine = { margin: "65px 0 20px 0" };
+
+const footerText = {
+  fontSize: "12px",
+  color: "rgb(102,102,102)",
+  margin: "0",
+  lineHeight: "auto",
+  marginBottom: "16px",
+};
+
+const footerTextCenter = {
+  fontSize: "12px",
+  color: "rgb(102,102,102)",
+  margin: "20px 0",
+  lineHeight: "auto",
+  textAlign: "center",
+};
+
+const footerLink = { color: "rgb(0,115,255)" };
+
+const footerIcon = { display: "block", margin: "40px 0 0 0" };
+
+const footerLinksWrapper = {
+  margin: "8px 0 0 0",
+  textAlign: "center",
+  fontSize: "12px",
+  color: "rgb(102,102,102)",
+};
+
+const footerCopyright = {
+  margin: "25px 0 0 0",
+  textAlign: "center" ,
+  fontSize: "12px",
+  color: "rgb(102,102,102)",
+};
+
+const walletLinkText = {
+  fontSize: "14px",
+  fontWeight: "400",
+  textDecoration: "none",
 };

@@ -7,24 +7,26 @@ import { useUser, UserButton } from '@clerk/nextjs';
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover';
 import { CartUpdateContext } from '../_context/CartUpdateContext';
 import GlobalAPI from '../utils/GlobalAPI';
-import Cart from '../_components/Cart'
+import Cart from '../_components/Cart';
 
 const LandingHeader = () => {
     const { user, isSignedIn } = useUser();
     const [cart, setCart] = useState([]);
-    const {updateCart, setUpdateCart}=useContext(CartUpdateContext);
+    const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        console.log("Execute me");
-        user&&GetUserCart()
-    }, [updateCart && user])
+        user && GetUserCart();
+        if (user && user.publicMetadata && user.publicMetadata.role === 'admin') {
+            setIsAdmin(true);
+        }
+    }, [updateCart, user]);
 
     const GetUserCart = () => {
         GlobalAPI.getUserCart(user?.primaryEmailAddress.emailAddress).then(resp => {
-            console.log(resp)
             setCart(resp.userCarts);
-        })
-    }
+        });
+    };
 
     const navigation = [
         { title: 'Home', link: '/home' },
@@ -36,6 +38,10 @@ const LandingHeader = () => {
     const authLinks = [
         { title: 'Order Now', link: '/order' },
         { title: isSignedIn ? '' : 'Login', link: isSignedIn ? '' : '/sign-in' },
+    ];
+
+    const adminLinks = [
+        { title: 'Dashboard', link: '/admin/dashboard' },
     ];
 
     const pathName = usePathname();
@@ -56,8 +62,23 @@ const LandingHeader = () => {
                     <div>
                         <img src='https://raw.githubusercontent.com/TianMeds/image--stocks-for-coding/274a634a12930720116a85d65cf5930559da76bf/G%26R%20Eatery%20Logo.svg' alt='Your Logo' className='h-20 w-20' />
                     </div>
-                    {/* Hamburger menu button for mobile and tablet views */}
-                    <div className='md:hidden'>
+                    {/* Cart icon for mobile view */}
+                    <div className='md:hidden flex items-center gap-3'>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <div className='flex gap-2 items-center cursor-pointer'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-7 w-7">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                    </svg>
+                                    <label className='p-1 px-2 rounded-full bg-slate-200'>
+                                        {cart?.length}
+                                    </label>
+                                </div>
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <Cart cart={cart}/>
+                            </PopoverContent>
+                        </Popover>
                         <button onClick={toggleMenu} className='focus:outline-none'>
                             {!isOpen ? (
                                 <div className='focus:outline-none mx-4'>
@@ -76,6 +97,14 @@ const LandingHeader = () => {
                     {/* Regular navigation for laptop view */}
                     <div className='hidden md:flex items-center gap-7 justify-center'>
                         {navigation.map((item) => (
+                            <Link key={item.title} href={item.link} className={`relative group overflow-hidden ${pathName === item.link && 'text-blue-700 underline'}`}>
+                                {item.title}
+                                <span
+                                    className={`w-full h-[1px] inline-flex absolute bottom-0 left-0 bg-black dark:bg-white -translate-x-[105%] duration-300 ${pathName === item.link ? 'bg-black dark:bg-black' : 'bg-black dark:bg-white'}`}
+                                />
+                            </Link>
+                        ))}
+                        {isAdmin && adminLinks.map((item) => (
                             <Link key={item.title} href={item.link} className={`relative group overflow-hidden ${pathName === item.link && 'text-blue-700 underline'}`}>
                                 {item.title}
                                 <span
@@ -103,14 +132,14 @@ const LandingHeader = () => {
                             <div className='flex gap-3 items-center'>
                                 <Popover>
                                     <PopoverTrigger asChild>
-                                    <div className='flex gap-2 items-cemter cursor-pointer'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-7 w-7">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                                        </svg>
-                                        <label className='p-1 px-2 rounded-full bg-slate-200'>
-                                            {cart?.length}
-                                        </label>
-                                    </div>
+                                        <div className='flex gap-2 items-cemter cursor-pointer'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-7 w-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                            </svg>
+                                            <label className='p-1 px-2 rounded-full bg-slate-200'>
+                                                {cart?.length}
+                                            </label>
+                                        </div>
                                     </PopoverTrigger>
                                     <PopoverContent>
                                         <Cart cart={cart}/>
@@ -161,6 +190,14 @@ const LandingHeader = () => {
                                     </div>
                                 )
                             )
+                        ))}
+                        {isAdmin && adminLinks.map((item) => (
+                            <Link key={item.title} href={item.link} className={`relative group overflow-hidden text-4xl mb-2 text-white ${pathName === item.link && 'text-blue-700'}`}>
+                                {item.title}
+                                <span
+                                    className={`w-full h-[1px] inline-flex absolute bottom-0 left-0 bg-black dark:bg-white -translate-x-[105%] group-hover:translate-x-0 duration-300 ${pathName === item.link ? 'bg-blue-600 dark:bg-blue-600 translate-x-0' : 'bg-black dark:bg-white'}`}
+                                />
+                            </Link>
                         ))}
                     </div>
                 </div>
