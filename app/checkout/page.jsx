@@ -159,7 +159,7 @@ const Checkout = () => {
                     <Button className="bg-red-500 hover:bg-red-700" onClick={sendEmail} disabled={(!userName || !email || !phone || phoneError) || loading}>
                         {loading ? <Loader className="animate-spin" /> : "Place Order"}
                     </Button>
-                    {total > 5 && 
+{/*                     {total > 5 && 
                     <PayPalButtons
                         disabled={(!userName || !email || !phone) || loading}
                         style={{ layout: "horizontal" }}
@@ -176,7 +176,7 @@ const Checkout = () => {
                                 ]
                             });
                         }}
-                    />}
+                    />} */}
                 </div>
             </div>
         </div>
