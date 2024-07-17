@@ -41,7 +41,7 @@ const baseUrl = process.env.VERCEL_URL
               <Row>
                 <Column>
                   <img
-                    src="https://raw.githubusercontent.com/TianMeds/image--stocks-for-coding/84a59ca8df5a3875fc66d84f87943a62160c8ada/G%26R%20Eatery%20Logo.svg"
+                    src="https://raw.githubusercontent.com/TianMeds/image--stocks-for-coding/main/EateryaLogo.png"
                     width="150"
                     height="150"
                     alt="Rene & Grace Sizzlingg Logo"
@@ -132,18 +132,6 @@ const baseUrl = process.env.VERCEL_URL
               </Row>
             </Section>
             <Hr style={productPriceLineBottom} />
-            <Section>
-              <Row>
-                <Column align="center" style={block}>
-                  <img
-                    src="https://raw.githubusercontent.com/TianMeds/image--stocks-for-coding/84a59ca8df5a3875fc66d84f87943a62160c8ada/G%26R%20Eatery%20Logo.svg"
-                    width="60"
-                    height="17"
-                    alt="Apple Card"
-                  />
-                </Column>
-              </Row>
-            </Section>
           </Container>
         </Body>
       </Html>
